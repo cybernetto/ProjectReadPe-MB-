@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+#include "lib/petest.h"
 
 void fatal(char *msg){
 	fprintf(stderr, "Erro: %s\n", msg);
@@ -12,11 +12,6 @@ void usage(void){
 	exit(1);
 }
 
-bool ispe(const unsigned char *b) {
-	if (b[0] == 'M' || b[1] == 'Z') //'' returns a number 
-		return true;
-	return false;
-}
 int main(int argc, char * argv[]){
 	FILE * fh;
 	unsigned char buffer[32];
@@ -34,7 +29,7 @@ int main(int argc, char * argv[]){
 	
 	fclose(fh);
 
-	if(!ispe(buffer))
+	if(!petest_ispe(buffer))
 		fatal("hmm, o aquivo não parece um executável PE. :/");
 	
 	return 0;
